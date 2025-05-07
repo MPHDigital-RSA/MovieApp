@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import axios from 'axios'
+import MovieCard from './components/MovieCard'
+
+
 
 function App() {
   const [trendingMovies, setTrendingMovies] = useState({})
@@ -49,9 +51,6 @@ function App() {
       });
   }
 
-  const handleMovieCardClick = (id) => {
-    alert(id)
-  }
   return (
     <div className='p-10 w-full max-w-3xl mx-auto'>
       <h1 className='text-2xl font-bold text-green-700'>Trending</h1>
@@ -67,14 +66,9 @@ function App() {
 
       <div className='flex flex-wrap gap-5 w-full justify-center mt-10 sm:grid sm:grid-cols-2'>
         {dataLoaded ? trendingMovies.results.map((movie) => (
-          <div key={movie.id} className='w-full shadow-md rounded-sm overflow-hidden cursor-pointer' onClick={() => handleMovieCardClick(movie.id)}>
-            <img src={` http://image.tmdb.org/t/p/w500/${movie.backdrop_path}`} alt="" className='w-full h-56 object-cover' />
-            <div className='px-4 pb-5 mt-3'>
-              <p className='text-xl text-green-900 font-bold'>{movie.title}</p>
-            </div>
-          </div>
+          <MovieCard movie={movie} />
         ))
-          : <p className='bg-green-200 w-full mt-10 text-green-900 flex items-center justify-center h-29 rounded-xl font-bold'>No movie data yet</p>
+          : <p className='bg-green-200 w-full mt-10 text-green-900 flex items-center justify-center h-29 rounded-xl font-bold'>Loading</p>
         }
 
       </div>
